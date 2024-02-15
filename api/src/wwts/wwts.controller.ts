@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { WwtsService } from './wwts.service';
-import { InviteV4Data } from 'whatsapp-web.js';
+import WAWebJS, { InviteV4Data } from 'whatsapp-web.js';
 
 @Controller('client')
 export class WwtsController {
@@ -49,7 +49,7 @@ export class WwtsController {
   createGroup(
     @Body('title') title: string,
     @Body('participants') participants: string[],
-    @Body('options') options: any,
+    @Body('options') options: WAWebJS.CreateGroupOptions,
   ) {
     return this.wwtsService.client.createGroup(title, participants, options);
   }
