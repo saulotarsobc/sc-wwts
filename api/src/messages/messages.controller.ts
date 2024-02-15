@@ -3,10 +3,10 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  constructor(private readonly service: MessagesService) {}
+  constructor(private readonly messagesService: MessagesService) {}
 
   @Post('sendMessage')
   sendMessage(@Body() data: any) {
-    return this.service.sendMessage(data);
+    return this.messagesService.sendMessage(data);
   }
 }

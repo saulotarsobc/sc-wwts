@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Client, LocalAuth } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 
@@ -21,10 +21,19 @@ export class WwtsService {
     this.client.initialize();
   }
 
+  private readonly logger = new Logger(WwtsService.name);
+
   client = new Client({
     authStrategy: new LocalAuth({ clientId: 'CLIENT' }),
     puppeteer: {
       args: ['--no-sandbox'],
     },
   });
+
+  // services
+  async info() {
+    return {
+      ...this.client.info,
+    };
+  }
 }
