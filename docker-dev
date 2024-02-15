@@ -1,0 +1,6 @@
+#! bash
+echo
+echo '🚀 Running just database container...'
+echo
+
+docker compose up -d --build database;
