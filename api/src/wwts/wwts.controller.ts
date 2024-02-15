@@ -1,23 +1,23 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { WwtsService } from './wwts.service';
 import { InviteV4Data } from 'whatsapp-web.js';
 
-@Controller('info')
+@Controller('client')
 export class WwtsController {
   constructor(private readonly wwtsService: WwtsService) {}
 
-  @Get()
+  @Get('info')
   info() {
     return this.wwtsService.client.info;
   }
 
-  @Get()
+  @Post('acceptGroupV4Invite')
   acceptGroupV4Invite(@Body('inviteInfo') inviteInfo: InviteV4Data) {
     return this.wwtsService.client.acceptGroupV4Invite(inviteInfo);
   }
 
-  @Post('acceptInvite/:inviteCode')
-  acceptInvite(@Param('inviteCode') inviteCode: string) {
+  @Post('acceptInvite')
+  acceptInvite(@Body('inviteCode') inviteCode: string) {
     return this.wwtsService.client.acceptInvite(inviteCode);
   }
 
@@ -29,9 +29,9 @@ export class WwtsController {
     return this.wwtsService.client.addOrRemoveLabels(labelIds, chatIds);
   }
 
-  @Post('approveGroupMembershipRequests/:groupId')
+  @Post('approveGroupMembershipRequests')
   approveGroupMembershipRequests(
-    @Param('groupId') groupId: string,
+    @Body('groupId') groupId: string,
     @Body('options') options: any,
   ) {
     return this.wwtsService.client.approveGroupMembershipRequests(
@@ -69,13 +69,13 @@ export class WwtsController {
     return this.wwtsService.client.getBlockedContacts();
   }
 
-  @Get('chatById/:chatId')
-  getChatById(@Param('chatId') chatId: string) {
+  @Post('chatById')
+  getChatById(@Body('chatId') chatId: string) {
     return this.wwtsService.client.getChatById(chatId);
   }
 
-  @Get('chatLabels/:chatId')
-  getChatLabels(@Param('chatId') chatId: string) {
+  @Post('chatLabels')
+  getChatLabels(@Body('chatId') chatId: string) {
     return this.wwtsService.client.getChatLabels(chatId);
   }
 
@@ -84,18 +84,18 @@ export class WwtsController {
     return this.wwtsService.client.getChats();
   }
 
-  @Get('chatsByLabelId/:labelId')
-  getChatsByLabelId(@Param('labelId') labelId: string) {
+  @Post('chatsByLabelId')
+  getChatsByLabelId(@Body('labelId') labelId: string) {
     return this.wwtsService.client.getChatsByLabelId(labelId);
   }
 
-  @Get('commonGroups/:contactId')
-  getCommonGroups(@Param('contactId') contactId: string) {
+  @Post('commonGroups')
+  getCommonGroups(@Body('contactId') contactId: string) {
     return this.wwtsService.client.getCommonGroups(contactId);
   }
 
-  @Get('contactById/:contactId')
-  getContactById(@Param('contactId') contactId: string) {
+  @Post('contactById')
+  getContactById(@Body('contactId') contactId: string) {
     return this.wwtsService.client.getContactById(contactId);
   }
 
@@ -104,28 +104,28 @@ export class WwtsController {
     return this.wwtsService.client.getContacts();
   }
 
-  @Get('countryCode/:number')
-  getCountryCode(@Param('number') number: string) {
+  @Post('countryCode')
+  getCountryCode(@Body('number') number: string) {
     return this.wwtsService.client.getCountryCode(number);
   }
 
-  @Get('formattedNumber/:number')
-  getFormattedNumber(@Param('number') number: string) {
+  @Post('formattedNumber')
+  getFormattedNumber(@Body('number') number: string) {
     return this.wwtsService.client.getFormattedNumber(number);
   }
 
-  @Get('groupMembershipRequests/:groupId')
-  getGroupMembershipRequests(@Param('groupId') groupId: string) {
+  @Post('groupMembershipRequests')
+  getGroupMembershipRequests(@Body('groupId') groupId: string) {
     return this.wwtsService.client.getGroupMembershipRequests(groupId);
   }
 
-  @Get('inviteInfo/:inviteCode')
-  getInviteInfo(@Param('inviteCode') inviteCode: string) {
+  @Post('inviteInfo')
+  getInviteInfo(@Body('inviteCode') inviteCode: string) {
     return this.wwtsService.client.getInviteInfo(inviteCode);
   }
 
-  @Get('labelById/:labelId')
-  getLabelById(@Param('labelId') labelId: string) {
+  @Post('labelById')
+  getLabelById(@Body('labelId') labelId: string) {
     return this.wwtsService.client.getLabelById(labelId);
   }
 
@@ -134,13 +134,13 @@ export class WwtsController {
     return this.wwtsService.client.getLabels();
   }
 
-  @Get('numberId/:number')
-  getNumberId(@Param('number') number: string) {
+  @Post('numberId')
+  getNumberId(@Body('number') number: string) {
     return this.wwtsService.client.getNumberId(number);
   }
 
-  @Get('profilePicUrl/:contactId')
-  getProfilePicUrl(@Param('contactId') contactId: string) {
+  @Post('profilePicUrl')
+  getProfilePicUrl(@Body('contactId') contactId: string) {
     return this.wwtsService.client.getProfilePicUrl(contactId);
   }
 
@@ -159,8 +159,8 @@ export class WwtsController {
     return this.wwtsService.client.initialize();
   }
 
-  @Get('isRegisteredUser/:id')
-  isRegisteredUser(@Param('id') id: string) {
+  @Post('isRegisteredUser')
+  isRegisteredUser(@Body('id') id: string) {
     return this.wwtsService.client.isRegisteredUser(id);
   }
 
@@ -169,27 +169,27 @@ export class WwtsController {
     return this.wwtsService.client.logout();
   }
 
-  @Post('markChatUnread/:chatId')
-  markChatUnread(@Param('chatId') chatId: string) {
+  @Post('markChatUnread')
+  markChatUnread(@Body('chatId') chatId: string) {
     return this.wwtsService.client.markChatUnread(chatId);
   }
 
-  @Post('muteChat/:chatId')
+  @Post('muteChat')
   muteChat(
-    @Param('chatId') chatId: string,
+    @Body('chatId') chatId: string,
     @Body('unmuteDate') unmuteDate: Date,
   ) {
     return this.wwtsService.client.muteChat(chatId, unmuteDate);
   }
 
-  @Post('pinChat/:chatId')
-  pinChat(@Param('chatId') chatId: string) {
+  @Post('pinChat')
+  pinChat(@Body('chatId') chatId: string) {
     return this.wwtsService.client.pinChat(chatId);
   }
 
-  @Post('rejectGroupMembershipRequests/:groupId')
+  @Post('rejectGroupMembershipRequests')
   rejectGroupMembershipRequests(
-    @Param('groupId') groupId: string,
+    @Body('groupId') groupId: string,
     @Body('options') options: any,
   ) {
     return this.wwtsService.client.rejectGroupMembershipRequests(
@@ -203,17 +203,14 @@ export class WwtsController {
     return this.wwtsService.client.resetState();
   }
 
-  @Get('searchMessages')
-  searchMessages(
-    @Query('query') query: string,
-    @Query('options') options: any,
-  ) {
+  @Post('searchMessages')
+  searchMessages(@Body('query') query: string, @Body('options') options: any) {
     return this.wwtsService.client.searchMessages(query, options);
   }
 
-  @Post('sendMessage/:chatId')
+  @Post('sendMessage')
   sendMessage(
-    @Param('chatId') chatId: string,
+    @Body('chatId') chatId: string,
     @Body('content') content: string,
     @Body('options') options: any,
   ) {
@@ -230,8 +227,8 @@ export class WwtsController {
     return this.wwtsService.client.sendPresenceUnavailable();
   }
 
-  @Post('sendSeen/:chatId')
-  sendSeen(@Param('chatId') chatId: string) {
+  @Post('sendSeen')
+  sendSeen(@Body('chatId') chatId: string) {
     return this.wwtsService.client.sendSeen(chatId);
   }
 
@@ -250,18 +247,18 @@ export class WwtsController {
     return this.wwtsService.client.setStatus(status);
   }
 
-  @Post('unarchiveChat/:chatId')
-  unarchiveChat(@Param('chatId') chatId: string) {
+  @Post('unarchiveChat')
+  unarchiveChat(@Body('chatId') chatId: string) {
     return this.wwtsService.client.unarchiveChat(chatId);
   }
 
-  @Post('unmuteChat/:chatId')
-  unmuteChat(@Param('chatId') chatId: string) {
+  @Post('unmuteChat')
+  unmuteChat(@Body('chatId') chatId: string) {
     return this.wwtsService.client.unmuteChat(chatId);
   }
 
-  @Post('unpinChat/:chatId')
-  unpinChat(@Param('chatId') chatId: string) {
+  @Post('unpinChat')
+  unpinChat(@Body('chatId') chatId: string) {
     return this.wwtsService.client.unpinChat(chatId);
   }
 }
